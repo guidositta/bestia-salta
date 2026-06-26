@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bestia Salta</title>
+    <meta name="description" content="Un runner ironico e assurdo: salta gli ostacoli del Grand Prix, evolvi in creature improbabili e cerca di non rovinare la carriera animale.">
+    <meta property="og:title" content="Bestia Salta">
+    <meta property="og:description" content="Clicca al momento giusto, supera gli ostacoli e scala i Livelli del Grand Prix piu assurdo della stalla.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell" aria-label="Bestia Salta game">
+      <section class="game-panel">
+        <div class="hud" aria-live="polite">
+          <div>
+            <span class="hud-label">Punti</span>
+            <strong id="score">0</strong>
+          </div>
+          <div>
+            <span class="hud-label">Mondo</span>
+            <strong id="worldName">Livello 1</strong>
+          </div>
+          <div>
+            <span class="hud-label">Animale</span>
+            <strong id="animalName">Cavallino</strong>
+          </div>
+          <div>
+            <span class="hud-label">Vite</span>
+            <strong id="lives">3</strong>
+          </div>
+          <div>
+            <span class="hud-label">Evoluzione</span>
+            <strong id="rank">3/7</strong>
+          </div>
+          <div>
+            <span class="hud-label">Record</span>
+            <strong id="best">0</strong>
+          </div>
+        </div>
+
+        <canvas id="game" width="960" height="540" aria-label="Bestia Salta game canvas"></canvas>
+
+        <div class="controls" aria-label="Game controls">
+          <button id="jumpButton" type="button">Salta</button>
+          <button id="goButton" type="button" hidden>Vai</button>
+          <button id="pauseButton" type="button" aria-pressed="false">Pausa</button>
+          <button id="restartButton" type="button">Ricomincia</button>
+          <button id="stopButton" type="button">Interrompi</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,148 @@
+:root {
+  color-scheme: dark;
+  --bg: #101114;
+  --panel: #1a1d22;
+  --panel-2: #232830;
+  --text: #f5f1e8;
+  --muted: #b8bec8;
+  --accent: #f0c33c;
+  --accent-2: #36c2b4;
+  --danger: #f06449;
+  --line: rgba(255, 255, 255, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background:
+    radial-gradient(circle at 12% 12%, rgba(54, 194, 180, 0.16), transparent 28%),
+    radial-gradient(circle at 88% 22%, rgba(240, 195, 60, 0.12), transparent 26%),
+    linear-gradient(135deg, #101114 0%, #1a1c20 52%, #111316 100%);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  color: var(--text);
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  min-height: 44px;
+  padding: 0 16px;
+}
+
+button:hover,
+button:focus-visible {
+  border-color: rgba(239, 200, 74, 0.8);
+  outline: none;
+}
+
+.shell {
+  display: grid;
+  min-height: 100vh;
+  padding: clamp(12px, 2vw, 24px);
+  place-items: center;
+}
+
+.game-panel {
+  display: grid;
+  gap: 12px;
+  width: min(1120px, 100%);
+}
+
+.hud {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.hud > div {
+  background: rgba(26, 29, 34, 0.9);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.hud-label {
+  color: var(--muted);
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 3px;
+  text-transform: uppercase;
+}
+
+.hud strong {
+  display: block;
+  font-size: clamp(1rem, 2vw, 1.7rem);
+  min-height: 1.25em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+canvas {
+  aspect-ratio: 16 / 9;
+  background: #15181d;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: block;
+  width: 100%;
+}
+
+.controls {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 2fr) repeat(4, minmax(0, 1fr));
+}
+
+#jumpButton {
+  background: var(--accent);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #1b1708;
+}
+
+#goButton {
+  background: var(--accent-2);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #061c19;
+}
+
+#stopButton {
+  background: var(--danger);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #230806;
+}
+
+button[hidden] {
+  display: none;
+}
+
+@media (max-width: 620px) {
+  .shell {
+    align-items: start;
+  }
+
+  .hud {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hud > div {
+    min-height: 48px;
+  }
+
+  .controls {
+    grid-template-columns: 1fr;
+  }
+}
