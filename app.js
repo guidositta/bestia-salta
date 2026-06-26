@@ -1866,6 +1866,38 @@ function togglePause() {
   syncControls();
 }
 
+let orientationLockTried = false;
+
+function shouldTryLandscapeLock() {
+  return window.matchMedia("(pointer: coarse)").matches && window.matchMedia("(max-width: 920px), (max-height: 540px)").matches;
+}
+
+async function requestLandscapeMode() {
+  if (orientationLockTried || !shouldTryLandscapeLock()) return;
+  orientationLockTried = true;
+
+  try {
+    if (document.documentElement.requestFullscreen && !document.fullscreenElement) {
+      await document.documentElement.requestFullscreen({ navigationUI: "hide" });
+    }
+  } catch (error) {
+    // Some mobile browsers only allow fullscreen in installed apps.
+  }
+
+  try {
+    if (screen.orientation?.lock) await screen.orientation.lock("landscape");
+  } catch (error) {
+    // Safari and several in-app browsers ignore orientation locks.
+  }
+}
+
+function withLandscapeMode(action) {
+  return (event) => {
+    requestLandscapeMode();
+    action(event);
+  };
+}
+
 window.addEventListener("keydown", (event) => {
   if (event.code === "Space" || event.code === "ArrowUp" || event.code === "KeyW") {
     event.preventDefault();
@@ -1878,15 +1910,16 @@ window.addEventListener("keydown", (event) => {
   if (event.code === "Escape") stopGame();
 });
 
-canvas.addEventListener("pointerdown", requestJump);
-jumpButton.addEventListener("click", requestJump);
-goButton.addEventListener("click", continueWorld);
+canvas.addEventListener("pointerdown", withLandscapeMode(requestJump));
+jumpButton.addEventListener("click", withLandscapeMode(requestJump));
+goButton.addEventListener("click", withLandscapeMode(continueWorld));
 restartButton.addEventListener("click", () => {
+  requestLandscapeMode();
   startAudio();
   resetGame();
 });
-pauseButton.addEventListener("click", togglePause);
-stopButton.addEventListener("click", stopGame);
+pauseButton.addEventListener("click", withLandscapeMode(togglePause));
+stopButton.addEventListener("click", withLandscapeMode(stopGame));
 
 setPlayerSize();
 syncControls();
