@@ -130,19 +130,91 @@ button[hidden] {
 }
 
 @media (max-width: 620px) {
+  html,
+  body {
+    min-height: 100dvh;
+    overflow-x: hidden;
+  }
+
   .shell {
     align-items: start;
+    min-height: 100dvh;
+    padding: 6px;
+  }
+
+  .game-panel {
+    gap: 6px;
+    width: 100%;
   }
 
   .hud {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .hud > div {
-    min-height: 48px;
+    border-radius: 5px;
+    min-height: 0;
+    padding: 5px 6px;
+  }
+
+  .hud-label {
+    font-size: 0.53rem;
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .hud strong {
+    font-size: 0.72rem;
+    line-height: 1.08;
+    min-height: 0;
   }
 
   .controls {
-    grid-template-columns: 1fr;
+    gap: 4px;
+    grid-template-columns: 1.6fr 1fr 1.18fr 1.2fr;
+  }
+
+  button {
+    border-radius: 5px;
+    font-size: 0.72rem;
+    min-height: 34px;
+    padding: 0 6px;
+  }
+
+  canvas {
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 380px) {
+  .shell {
+    padding: 4px;
+  }
+
+  .hud {
+    gap: 3px;
+  }
+
+  .hud > div {
+    padding: 4px 5px;
+  }
+
+  .hud-label {
+    font-size: 0.48rem;
+  }
+
+  .hud strong {
+    font-size: 0.66rem;
+  }
+
+  .controls {
+    gap: 3px;
+  }
+
+  button {
+    font-size: 0.64rem;
+    min-height: 31px;
+    padding: 0 4px;
   }
 }
