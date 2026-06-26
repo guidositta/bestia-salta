@@ -12,6 +12,12 @@ const pauseButton = document.querySelector("#pauseButton");
 const restartButton = document.querySelector("#restartButton");
 const stopButton = document.querySelector("#stopButton");
 
+const facebookGame = {
+  available: false,
+  playerName: "",
+  started: false,
+};
+
 const worlds = [
   {
     name: "Livello 1",
@@ -225,6 +231,44 @@ function updateHud() {
   animalNameEl.textContent = currentAnimal().name;
   livesEl.textContent = `x${state.lives}`;
   rankEl.textContent = `${player.rank + 1}/${animals.length}`;
+}
+
+async function initFacebookGame() {
+  if (!window.FBInstant) return;
+
+  facebookGame.available = true;
+  try {
+    await FBInstant.initializeAsync();
+    FBInstant.setLoadingProgress(100);
+    await FBInstant.startGameAsync();
+    facebookGame.started = true;
+
+    const player = FBInstant.player;
+    facebookGame.playerName = player?.getName ? player.getName() : "";
+  } catch (error) {
+    facebookGame.available = false;
+  }
+}
+
+function updateFacebookStats() {
+  if (!facebookGame.available || !facebookGame.started || !window.FBInstant) return;
+
+  try {
+    const payload = {
+      best_score: state.best,
+      current_score: Math.floor(state.score),
+      level: state.worldIndex + 1,
+      animal: currentAnimal().name,
+    };
+
+    if (FBInstant.player?.setDataAsync) {
+      FBInstant.player.setDataAsync(payload).catch(() => {
+        facebookGame.available = false;
+      });
+    }
+  } catch (error) {
+    facebookGame.available = false;
+  }
 }
 
 function requestJump() {
@@ -660,6 +704,7 @@ function endGame() {
   state.awaitingGo = false;
   state.best = Math.max(state.best, Math.floor(state.score));
   localStorage.setItem("bestia-salta-best", String(state.best));
+  updateFacebookStats();
   syncControls();
   updateHud();
 }
@@ -1924,4 +1969,5 @@ stopButton.addEventListener("click", withLandscapeMode(stopGame));
 setPlayerSize();
 syncControls();
 updateHud();
+initFacebookGame();
 requestAnimationFrame(frame);

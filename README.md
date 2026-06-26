@@ -16,3 +16,22 @@ La demo include:
 - circuito di jumping stile Grand Prix, con pista, staccionate, tribune, tabellone e ostacoli a barriere colorate.
 
 La prima demo parte in pixel art anni 80, con scanline, colori saturi e atmosfera da cabinato agricolo improbabile.
+
+## Pacchetto Facebook Instant Games
+
+Il pacchetto preparato per Meta/Facebook e in `release/bestia-salta-facebook.zip`.
+
+Contiene:
+- `index.html`, `styles.css`, `app.js`;
+- `fbapp-config.json` con orientamento `LANDSCAPE`;
+- `privacy.html` e `terms.html`;
+- `social-preview.png`.
+
+Nel dashboard Meta for Developers:
+1. crea/configura l'app come gioco o Instant Game;
+2. imposta Privacy Policy e Terms usando URL pubblici;
+3. carica `release/bestia-salta-facebook.zip` nella sezione hosting/build del gioco;
+4. aggiungi tester e prova il gioco prima della review;
+5. aggiorna testi, icone, screenshot e categoria richiesti da Meta.
+
+La build funziona anche fuori da Facebook: se `FBInstant` non e disponibile, il gioco continua come web app normale.

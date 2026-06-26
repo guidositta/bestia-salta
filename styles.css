@@ -139,9 +139,19 @@ body:fullscreen,
   display: none;
 }
 
+.legal-page {
+  line-height: 1.55;
+  margin: 0 auto;
+  max-width: 760px;
+  padding: clamp(24px, 6vw, 56px);
+}
+
+.legal-page a {
+  color: var(--accent);
+}
+
 @media (max-width: 620px) {
-  html,
-  body {
+  body.game-page {
     min-height: 100dvh;
     overflow-x: hidden;
   }
@@ -230,8 +240,7 @@ body:fullscreen,
 }
 
 @media (orientation: landscape) and (max-height: 540px) {
-  html,
-  body {
+  body.game-page {
     height: 100dvh;
     min-height: 100dvh;
     overflow: hidden;
@@ -307,8 +316,7 @@ body:fullscreen,
 }
 
 @media (orientation: portrait) and (max-width: 760px) {
-  html,
-  body {
+  body.game-page {
     min-height: 100dvh;
     overflow: hidden;
   }
